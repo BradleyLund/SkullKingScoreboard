@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skull King Scoreboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SETUP SCREEN -->
+  <div id="setup-screen" class="screen">
+    <div class="setup-card">
+      <div class="logo">
+        <div class="skull-icon">&#9760;</div>
+        <h1>Skull King</h1>
+        <p class="tagline">Scoreboard</p>
+      </div>
+
+      <div class="form-section">
+        <label class="form-label">Number of Players</label>
+        <div id="count-btns" class="count-btns">
+          <button class="count-btn active" data-n="2">2</button>
+          <button class="count-btn" data-n="3">3</button>
+          <button class="count-btn" data-n="4">4</button>
+          <button class="count-btn" data-n="5">5</button>
+          <button class="count-btn" data-n="6">6</button>
+          <button class="count-btn" data-n="7">7</button>
+          <button class="count-btn" data-n="8">8</button>
+        </div>
+      </div>
+
+      <div id="name-inputs" class="form-section name-inputs"></div>
+
+      <button id="start-btn" class="btn-primary">&#9875; Set Sail!</button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game-screen" class="screen hidden">
+
+    <header class="game-header">
+      <h1 class="game-title">&#9760; Skull King</h1>
+      <span id="round-badge" class="round-badge">Round 1 / 10</span>
+      <button id="new-game-btn" class="btn-ghost">New Game</button>
+    </header>
+
+    <main class="game-main">
+
+      <!-- Scoreboard -->
+      <section class="panel" id="scoreboard-section">
+        <h2 class="panel-title">Scoreboard</h2>
+        <div class="table-wrap">
+          <table id="score-table">
+            <thead><tr id="score-thead-row"></tr></thead>
+            <tbody id="score-tbody"></tbody>
+            <tfoot><tr id="score-tfoot-row"></tr></tfoot>
+          </table>
+        </div>
+      </section>
+
+      <!-- Round Entry -->
+      <section class="panel" id="entry-section">
+        <h2 class="panel-title">Round <span id="entry-round-num">1</span> Entry</h2>
+        <div id="player-entries"></div>
+        <button id="score-round-btn" class="btn-primary full-width">Score Round &#8594;</button>
+      </section>
+
+      <!-- Game Over -->
+      <section class="panel hidden" id="gameover-section">
+        <h2 class="panel-title">&#127942; Game Over!</h2>
+        <div id="winner-display" class="winner-display"></div>
+        <ol id="final-standings" class="standings-list"></ol>
+        <button id="play-again-btn" class="btn-primary full-width">&#9875; Play Again</button>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
