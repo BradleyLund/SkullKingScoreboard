@@ -60,13 +60,13 @@ body {
 }
 
 .skull-icon {
-  font-size: 60px;
+  font-size: 48px;
   line-height: 1;
   margin-bottom: 10px;
 }
 
 .logo h1 {
-  font-size: 34px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--accent);
   letter-spacing: -0.5px;
@@ -101,12 +101,12 @@ body {
 
 .count-btn {
   flex: 1;
-  padding: 10px 4px;
+  padding: 8px 4px;
   background: var(--surface-2);
   border: 2px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, color 0.15s;
@@ -144,12 +144,12 @@ body {
 
 .name-input {
   flex: 1;
-  padding: 10px 14px;
+  padding: 8px 12px;
   background: var(--surface-2);
   border: 2px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text);
-  font-size: 15px;
+  font-size: 14px;
   outline: none;
   transition: border-color 0.15s;
 }
@@ -165,12 +165,12 @@ body {
 
 /* === BUTTONS === */
 .btn-primary {
-  padding: 14px 24px;
+  padding: 12px 20px;
   background: var(--accent);
   border: none;
   border-radius: var(--radius-sm);
   color: #0d1b2a;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
@@ -220,7 +220,7 @@ body {
 }
 
 .game-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--accent);
   white-space: nowrap;
@@ -267,8 +267,6 @@ body {
 /* === SCOREBOARD === */
 .table-wrap {
   overflow-x: auto;
-  max-height: 280px;
-  overflow-y: auto;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
 }
@@ -276,17 +274,17 @@ body {
 #score-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 #score-table th {
   background: var(--surface-2);
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 10px 14px;
+  padding: 8px 10px;
   text-align: center;
   position: sticky;
   top: 0;
@@ -299,37 +297,58 @@ body {
 }
 
 #score-table td {
-  padding: 8px 14px;
+  padding: 6px 10px;
   text-align: center;
-  border-bottom: 1px solid rgba(42, 74, 106, 0.4);
+  border-bottom: 1px solid rgba(42, 74, 106, 0.3);
 }
 
 #score-table td:first-child {
   text-align: left;
-  color: var(--text-muted);
-  font-size: 13px;
 }
 
 #score-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.03);
 }
 
-#score-table tfoot td {
-  font-weight: 700;
-  font-size: 15px;
-  padding: 10px 14px;
-  border-top: 2px solid var(--border);
+/* Score totals row */
+.score-row {
   background: var(--surface-2);
-  position: sticky;
-  bottom: 0;
+  border-bottom: 2px solid var(--border) !important;
 }
 
-#score-table tfoot td:first-child {
-  font-size: 11px;
+.score-row td {
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-bottom: 2px solid var(--border) !important;
+}
+
+.score-row td:first-child {
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--text-muted);
   font-weight: 600;
+}
+
+/* Current round row */
+.current-round-row {
+  background: rgba(240, 180, 41, 0.07);
+}
+
+.current-num {
+  color: var(--accent) !important;
+  font-weight: 700;
+}
+
+.round-num-cell {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.future-cell {
+  color: var(--text-muted);
+  opacity: 0.4;
 }
 
 .pos { color: var(--positive); }
@@ -363,10 +382,10 @@ body {
 }
 
 .entry-player-name {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--accent);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .entry-fields {
@@ -392,12 +411,12 @@ body {
 
 .entry-input {
   width: 100%;
-  padding: 10px 6px;
+  padding: 8px 4px;
   background: var(--surface);
   border: 2px solid var(--border);
   border-radius: 6px;
   color: var(--text);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   text-align: center;
   outline: none;
@@ -422,12 +441,12 @@ body {
 .score-preview {
   display: block;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 1;
-  padding: 12px 0;
+  padding: 9px 0;
   color: var(--text-muted);
-  min-height: 48px;
+  min-height: 38px;
 }
 
 /* === TRICKS ERROR === */
@@ -449,7 +468,7 @@ body {
 }
 
 .winner-name {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--accent);
 }
@@ -496,12 +515,12 @@ body {
 
 .standing-name {
   flex: 1;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }
 
 .standing-score {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--accent);
 }

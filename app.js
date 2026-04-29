@@ -157,35 +157,43 @@ function updateRoundBadge() {
 // === SCOREBOARD ===
 
 function renderScoreboard() {
-  const thead = $('score-thead-row');
-  const tbody = $('score-tbody');
-  const tfoot = $('score-tfoot-row');
+  const table = $('score-table');
+  const totals = state.players.map((_, i) => getTotal(i));
 
-  thead.innerHTML = '<th>Round</th>' +
-    state.players.map(p => `<th>${escHtml(p)}</th>`).join('');
+  let html = '<thead><tr><th>Round</th>';
+  state.players.forEach(p => { html += `<th>${escHtml(p)}</th>`; });
+  html += '</tr></thead><tbody>';
 
-  tbody.innerHTML = '';
-  state.rounds.forEach(round => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${round.roundNumber}</td>` +
-      round.scores.map(s => {
+  // Score totals row
+  html += '<tr class="score-row"><td>Score</td>';
+  totals.forEach(t => {
+    const cls = t > 0 ? 'pos' : t < 0 ? 'neg' : '';
+    html += `<td class="${cls}">${t}</td>`;
+  });
+  html += '</tr>';
+
+  // All 10 rounds
+  for (let r = 1; r <= TOTAL_ROUNDS; r++) {
+    const done = state.rounds.find(rd => rd.roundNumber === r);
+    const isCurrent = !state.gameOver && r === state.currentRound;
+    html += `<tr class="${isCurrent ? 'current-round-row' : ''}"><td class="round-num-cell${isCurrent ? ' current-num' : ''}">${r}</td>`;
+
+    state.players.forEach((_, pi) => {
+      if (done) {
+        const s = done.scores[pi];
         const cls = s.roundScore > 0 ? 'pos' : s.roundScore < 0 ? 'neg' : '';
         const sign = s.roundScore > 0 ? '+' : '';
-        return `<td class="${cls}">${sign}${s.roundScore}</td>`;
-      }).join('');
-    tbody.appendChild(tr);
-  });
+        html += `<td class="${cls}">${sign}${s.roundScore}</td>`;
+      } else {
+        html += `<td class="future-cell">-</td>`;
+      }
+    });
 
-  const totals = state.players.map((_, i) => getTotal(i));
-  tfoot.innerHTML = '<td>Total</td>' +
-    totals.map(t => {
-      const cls = t > 0 ? 'pos' : t < 0 ? 'neg' : '';
-      return `<td class="${cls}">${t}</td>`;
-    }).join('');
+    html += '</tr>';
+  }
 
-  // Scroll to bottom so latest round is visible
-  const wrap = document.querySelector('.table-wrap');
-  if (wrap) setTimeout(() => { wrap.scrollTop = wrap.scrollHeight; }, 0);
+  html += '</tbody>';
+  table.innerHTML = html;
 }
 
 // === ROUND ENTRY ===
