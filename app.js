@@ -267,6 +267,7 @@ function scoreRound() {
   const scores = [];
   let firstError = null;
   let valid = true;
+  const tricksErrorEl = $('tricks-error');
 
   cards.forEach(card => {
     const bidEl = card.querySelector('.bid-input');
@@ -298,9 +299,20 @@ function scoreRound() {
   });
 
   if (!valid) {
+    tricksErrorEl.classList.add('hidden');
     if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
+
+  const totalTaken = scores.reduce((sum, s) => sum + s.taken, 0);
+  if (totalTaken !== state.currentRound) {
+    tricksErrorEl.textContent =
+      `Tricks taken must add up to ${state.currentRound} (current total: ${totalTaken}).`;
+    tricksErrorEl.classList.remove('hidden');
+    tricksErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  tricksErrorEl.classList.add('hidden');
 
   state.rounds.push({ roundNumber: state.currentRound, scores });
 
