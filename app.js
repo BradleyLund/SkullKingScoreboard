@@ -120,7 +120,13 @@ function startGame() {
   const names = Array.from(document.querySelectorAll('.name-input'))
     .map((inp, i) => inp.value.trim() || `Player ${i + 1}`);
 
-  state = { players: names, rounds: [], currentRound: 1, gameOver: false };
+  state = {
+    players: names,
+    rounds: [],
+    currentRound: 1,
+    gameOver: false,
+    useKraken: $('use-kraken').checked
+  };
   saveState();
   switchToGame();
 }
@@ -176,7 +182,8 @@ function renderScoreboard() {
   for (let r = 1; r <= TOTAL_ROUNDS; r++) {
     const done = state.rounds.find(rd => rd.roundNumber === r);
     const isCurrent = !state.gameOver && r === state.currentRound;
-    html += `<tr class="${isCurrent ? 'current-round-row' : ''}"><td class="round-num-cell${isCurrent ? ' current-num' : ''}">${r}</td>`;
+    const krakenIcon = done?.krakenPlayed ? ' &#128027;' : '';
+    html += `<tr class="${isCurrent ? 'current-round-row' : ''}"><td class="round-num-cell${isCurrent ? ' current-num' : ''}">${r}${krakenIcon}</td>`;
 
     state.players.forEach((_, pi) => {
       if (done) {
@@ -263,6 +270,15 @@ function renderEntryForm() {
     container.appendChild(card);
   });
 
+  // Show/hide kraken checkbox
+  const krakenRow = $('kraken-row');
+  if (state.useKraken) {
+    show(krakenRow);
+    $('kraken-played-cb').checked = false;
+  } else {
+    hide(krakenRow);
+  }
+
   // Focus first bid input
   const firstBid = container.querySelector('.bid-input');
   if (firstBid) firstBid.focus();
@@ -312,17 +328,24 @@ function scoreRound() {
     return;
   }
 
+  const krakenPlayed = state.useKraken && ($('kraken-played-cb')?.checked ?? false);
   const totalTaken = scores.reduce((sum, s) => sum + s.taken, 0);
-  if (totalTaken !== state.currentRound) {
-    tricksErrorEl.textContent =
-      `Tricks taken must add up to ${state.currentRound} (current total: ${totalTaken}).`;
+  const validTotals = krakenPlayed
+    ? [state.currentRound, state.currentRound - 1]
+    : [state.currentRound];
+
+  if (!validTotals.includes(totalTaken)) {
+    const expected = krakenPlayed
+      ? `${state.currentRound} or ${state.currentRound - 1} (Kraken)`
+      : `${state.currentRound}`;
+    tricksErrorEl.textContent = `Tricks must add up to ${expected}. Currently: ${totalTaken}.`;
     tricksErrorEl.classList.remove('hidden');
     tricksErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
   tricksErrorEl.classList.add('hidden');
 
-  state.rounds.push({ roundNumber: state.currentRound, scores });
+  state.rounds.push({ roundNumber: state.currentRound, scores, krakenPlayed });
 
   if (state.currentRound >= TOTAL_ROUNDS) {
     state.gameOver = true;

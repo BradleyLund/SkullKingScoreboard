@@ -163,6 +163,31 @@ body {
   opacity: 0.7;
 }
 
+/* === OPTION TOGGLES === */
+.option-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text);
+  user-select: none;
+}
+
+.option-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
 /* === BUTTONS === */
 .btn-primary {
   padding: 12px 20px;
@@ -447,6 +472,15 @@ body {
   padding: 9px 0;
   color: var(--text-muted);
   min-height: 38px;
+}
+
+/* === KRAKEN ROW === */
+.kraken-row {
+  background: rgba(42, 74, 106, 0.3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 12px;
 }
 
 /* === TRICKS ERROR === */

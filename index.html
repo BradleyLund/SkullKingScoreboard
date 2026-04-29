@@ -32,6 +32,16 @@
 
       <div id="name-inputs" class="form-section name-inputs"></div>
 
+      <div class="form-section">
+        <label class="form-label">Optional Rules</label>
+        <div class="option-toggles">
+          <label class="option-toggle">
+            <input type="checkbox" id="use-kraken" />
+            <span>&#128027; Kraken card in play</span>
+          </label>
+        </div>
+      </div>
+
       <button id="start-btn" class="btn-primary">&#9875; Set Sail!</button>
     </div>
   </div>
@@ -59,6 +69,12 @@
       <section class="panel" id="entry-section">
         <h2 class="panel-title">Round <span id="entry-round-num">1</span> Entry</h2>
         <div id="player-entries"></div>
+        <div id="kraken-row" class="kraken-row hidden">
+          <label class="option-toggle">
+            <input type="checkbox" id="kraken-played-cb" />
+            <span>&#128027; Kraken was played this round</span>
+          </label>
+        </div>
         <p id="tricks-error" class="tricks-error hidden"></p>
         <button id="score-round-btn" class="btn-primary full-width">Score Round &#8594;</button>
       </section>
