@@ -42,7 +42,7 @@ function calcRoundScore(bid, taken, bonus, roundNum) {
   roundNum = Number(roundNum);
 
   if (bid === 0) {
-    return taken === 0 ? 10 * roundNum : -10 * roundNum;
+    return taken === 0 ? 10 * roundNum + bonus : -10 * roundNum;
   }
   return taken === bid ? 20 * bid + bonus : -10 * Math.abs(bid - taken);
 }
@@ -246,8 +246,8 @@ function renderEntryForm() {
       const bidVal = bidEl.value;
       const takenVal = takenEl.value;
       const bonusApplies = bidVal !== '' && takenVal !== ''
-        && Number(bidVal) > 0
-        && Number(bidVal) === Number(takenVal);
+        && ((Number(bidVal) > 0 && Number(bidVal) === Number(takenVal))
+          || (Number(bidVal) === 0 && Number(takenVal) === 0));
 
       bonusEl.disabled = !bonusApplies;
       bonusField.classList.toggle('field-disabled', !bonusApplies);
@@ -311,7 +311,7 @@ function scoreRound() {
 
     const bid = Number(bidVal);
     const taken = Number(takenVal);
-    const bonusApplies = bid > 0 && bid === taken;
+    const bonusApplies = (bid > 0 && bid === taken) || (bid === 0 && taken === 0);
     const roundScore = calcRoundScore(bid, taken, bonusApplies ? bonusEl.value : 0, state.currentRound);
 
     scores.push({
